@@ -1,20 +1,33 @@
 [
   {
     "id": 1,
-    "title": "Spaghetti Carbonara",
-    "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-    "image": "https://via.placeholder.com/150"
+    "name": "Chocolate Cake",
+    "image": "/images/cake.jpg",
+    "ingredients": [
+      "2 cups flour",
+      "1 cup sugar",
+      "1 cup milk",
+      "2 eggs"
+    ],
+    "instructions": [
+      "Preheat oven to 180°C.",
+      "Mix ingredients together.",
+      "Bake for 30 minutes."
+    ]
   },
   {
     "id": 2,
-    "title": "Chicken Tikka Masala",
-    "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato based gravy.",
-    "image": "https://via.placeholder.com/150"
-  },
-  {
-    "id": 3,
-    "title": "Avocado Toast",
-    "summary": "Simple, quick, and delicious breakfast toast topped with creamy avocado and seasonings.",
-    "image": "https://via.placeholder.com/150"
+    "name": "Pasta",
+    "image": "/images/pasta.jpg",
+    "ingredients": [
+      "200g pasta",
+      "1 cup tomato sauce",
+      "Salt to taste"
+    ],
+    "instructions": [
+      "Boil pasta until tender.",
+      "Drain water and add sauce.",
+      "Mix and serve."
+    ]
   }
 ]
