@@ -16,9 +16,15 @@ function PostsComponent() {
     isError,
     error,
     refetch,
+    isFetching,
   } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
+    // ✅ Advanced caching options
+    cacheTime: 1000 * 60 * 5, // Keep data in cache for 5 minutes
+    staleTime: 1000 * 30, // Data considered fresh for 30 seconds
+    refetchOnWindowFocus: false, // Disable refetching when tab is focused
+    keepPreviousData: true, // Retain old data while fetching new data
   });
 
   if (isLoading) {
@@ -31,8 +37,11 @@ function PostsComponent() {
 
   return (
     <div>
-      <h1>Posts</h1>
-      <button onClick={() => refetch()}>Refetch Posts</button>
+      <h1>React Query Posts</h1>
+      <button onClick={() => refetch()} disabled={isFetching}>
+        {isFetching ? "Refetching..." : "Refetch Posts"}
+      </button>
+
       <ul>
         {data.map((post) => (
           <li key={post.id}>
@@ -46,3 +55,4 @@ function PostsComponent() {
 }
 
 export default PostsComponent;
+
