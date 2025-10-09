@@ -1,47 +1,49 @@
-import React, { useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./components/Home";
-import About from "./components/About";
 import Profile from "./components/Profile";
-import Blog from "./components/Blog";
+import ProfileDetails from "./components/ProfileDetails";
+import ProfileSettings from "./components/ProfileSettings";
 import BlogPost from "./components/BlogPost";
-import ProtectedRoute from "./components/ProtectedRoute";
+import Login from "./components/Login";
+
+// Simulated authentication (replace with real logic later)
+const isAuthenticated = false;
+
+// Protected route wrapper
+function ProtectedRoute({ children }) {
+  return isAuthenticated ? children : <Navigate to="/login" replace />;
+}
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
   return (
-    <div style={{ padding: "20px" }}>
-      <nav style={{ marginBottom: "20px" }}>
-        <Link to="/">Home</Link> |{" "}
-        <Link to="/about">About</Link> |{" "}
-        <Link to="/profile">Profile</Link> |{" "}
-        <Link to="/blog">Blog</Link>
-      </nav>
-
-      <button onClick={() => setIsAuthenticated(!isAuthenticated)}>
-        {isAuthenticated ? "Logout" : "Login"}
-      </button>
-
+    <BrowserRouter>
       <Routes>
+        {/* Basic route */}
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
 
-        {/* ✅ Protected Route for Profile */}
+        {/* Protected route with nested routes */}
         <Route
-          path="/profile/*"
+          path="/profile"
           element={
-            <ProtectedRoute isAuthenticated={isAuthenticated}>
+            <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
           }
-        />
+        >
+          <Route path="details" element={<ProfileDetails />} />
+          <Route path="settings" element={<ProfileSettings />} />
+        </Route>
 
-        {/* ✅ Blog Routes (Dynamic Routing) */}
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:postId" element={<BlogPost />} />
+        {/* Dynamic route example */}
+        <Route path="/blog/:id" element={<BlogPost />} />
+
+        {/* Login route */}
+        <Route path="/login" element={<Login />} />
+
+        {/* Catch-all for unknown routes */}
+        <Route path="*" element={<h2>404 - Page Not Found</h2>} />
       </Routes>
-    </div>
+    </BrowserRouter>
   );
 }
 
